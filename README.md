@@ -69,7 +69,7 @@ Siga os passos abaixo para configurar e executar o projeto:
 ---
 
 ##  Testes
-1 **Migrar Banco e popular**:  
+1 **Rodando testes do backend**:  
    Certifique-se de que o Docker e o Docker Compose estejam rodando e execute:
    ```bash
    docker exec -it app.backend npm run test
