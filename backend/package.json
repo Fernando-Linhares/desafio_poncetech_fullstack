@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "migrate": "npx prisma db pull",
+    "migrate": "npx prisma migrate dev",
     "seed": "node bin/seed.js",
     "test": "jest"
   },

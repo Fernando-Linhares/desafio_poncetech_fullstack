@@ -41,28 +41,35 @@ Siga os passos abaixo para configurar e executar o projeto:
    git clone https://github.com/seu-usuario/desafio-fullstack-poncetech.git
    cd desafio-fullstack-poncetech
    ```
-   
-2. **Compile o frontend**:
+
+2. **Copie .env.example**:
    ```bash
-    cd frontend 
-    ng build
+    cp .env.example .env
+   ```
+   
+3. **Compile o frontend and install dependencies**:
+   ```bash
+    cd frontend
+    npm install
+    npm run build
+    cd backend 
+    npm run install
    ```
 
-
-3. **Suba os containers com Docker Compose**:  
+4. **Suba os containers com Docker Compose**:  
    Certifique-se de que o Docker e o Docker Compose estejam rodando e execute:  
    ```bash
    docker-compose up --build
    ```  
 
-4. **Migrar Banco e popular**:  
+5. **Migrar Banco e popular**:  
    Certifique-se de que o Docker e o Docker Compose estejam rodando e execute:
    ```bash
    docker exec -it app.backend npm run migrate
    docker exec -it app.backend npm run seed
    ```  
 
-5. **Acesse o aplicativo**:  
+6. **Acesse o aplicativo**:  
    - O backend estará disponível em: `http://localhost:3000`  
    - O frontend estará disponível em: `http://localhost:4000`  
 
