@@ -1,0 +1,18 @@
+<div class="fixed items-center top-0 left-0 right-0 bg-slate-900 py-2 px-4 text-white flex justify-between">
+  <i class="fi fi-tr-rocket-lunch text-white text-4xl"></i>
+  <div class="space-x-4 text-slate-300">
+    <div *ngIf="isLoggedIn else auth">
+        <a href="/dashboard">
+          <i class="material-icons">person</i>
+        </a>
+    </div>
+    <ng-template #auth>
+      <a href="/login" class="hover:text-slate-100">
+       login
+      </a>
+      <a href="/register" class="hover:text-slate-100">
+        register
+      </a>
+    </ng-template>
+  </div>
+</div>

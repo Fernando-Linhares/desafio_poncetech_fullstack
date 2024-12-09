@@ -1,0 +1,62 @@
+<app-authpanel>
+  <form (ngSubmit)="onSubmit($event)" class="bg-sky-900 col-span-2 pt-28 h-full max-sm:col-span-5" [formGroup]="form">
+    <div class="w-full flex justify-center">
+
+      <img src="https://static.wixstatic.com/media/b740eb_c1daed90c894417eb5de7cd87102b84f~mv2.png/v1/fill/w_253,h_71,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/logov2.png" alt="user_managment" class="rounded-lg">
+    </div>
+    <div *ngIf="loginFail || form.get('login')?.invalid || form.get('password')?.invalid" class="text-red-700 text-center">
+      <div *ngIf="loginFail">
+        Falha no login, e-mail ou senha incorretos
+      </div>
+      <div *ngIf="form.get('login')?.hasError('email')">
+          Formato de e-mail inválido
+      </div>
+      <div *ngIf="form.get('login')?.touched && form.get('login')?.hasError('required')">
+          Formato de e-mail inválido
+      </div>
+      <div *ngIf="form.get('password')?.touched && form.get('password')?.hasError('minLength')">
+          A senha deve ter no mínimo 6 caracteres
+      </div>
+      <div *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">
+          A senha é obrigatória
+      </div>
+    </div>
+    <div class="w-full flex justify-center py-6">
+      <div class="text-left w-3/4 space-y-2">
+        <div class="text-sm text-white" [ngClass]="{'text-red-700': (form.get('login')?.touched &&  form.get('login')?.invalid) || loginFail}" >Email</div>
+        <div [ngClass]="{'border-red-500': (form.get('login')?.touched && form.get('login')?.invalid) || loginFail }" class="border-2 space-x-4 w-full bg-white rounded p-1 flex items-center justify-between px-3 ">
+          <input type="text" formControlName="login"  class=" w-full ring-0 outline-none text-lg">
+        </div>
+      </div>
+    </div>
+    <div class="w-full flex justify-center py-6">
+      <div class="text-left w-3/4 space-y-2">
+        <div class="text-sm text-white" [ngClass]="{'text-red-700': (form.get('login')?.touched &&  form.get('login')?.invalid) || loginFail}" >Senha</div>
+
+        <div [ngClass]="{'border-red-500':(form.get('password')?.touched && form.get('password')?.invalid) || loginFail }"  class="space-x-2 w-full bg-white rounded p-1 flex items-center justify-between px-3  border-2">
+          <input formControlName="password" [attr.type]="password.visible ?
+                'text' : 'password'" class="w-full ring-0 outline-none text-lg"
+          >
+          <i (click)="password.visible = !password.visible" *ngIf="password.visible else visibility" class="cursor-pointer material-icons" [ngClass]="{'hidden':this.form.value.password.length == 0}">visibility_off</i>
+          <ng-template  #visibility>
+            <i (click)="password.visible = !password.visible" [ngClass]="{'hidden':this.form.value.password.length == 0}" class="cursor-pointer material-icons">visibility</i>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="w-full flex justify-center py-6">
+      <button type="submit" class="w-3/4 bg-sky-700 rounded p-1 text-slate-200 hover:bg-sky-800">
+        Confirmar
+      </button>
+    </div>
+    <div class="flex justify-center">
+      <div class=" text-sm text-slate-400 cursor-pointer hover:underline" (click)="gotoRegister()">
+        Fazer Cadastro
+      </div>
+    </div>
+  </form>
+
+  <div class="fixed z-40 left-0 right-0 top-0 bottom-0 bg-black/40 flex justify-center items-center" [ngClass]="{'hidden': !loading}" >
+    <mat-spinner></mat-spinner>
+  </div>
+</app-authpanel>

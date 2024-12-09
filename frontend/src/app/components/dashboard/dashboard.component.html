@@ -1,0 +1,71 @@
+<div class="bg-slate-300 w-full text-sm ">
+  <div class="fixed left-0 top-0 bottom-0 bg-sky-900 w-1/5
+    max-sm:overflow-hidden max-sm:z-40 max-sm:transition-all max-sm:delay-50"
+    [ngClass]="{
+    'max-sm:w-0': !toggleSidebar,
+    'max-sm:w-full': toggleSidebar
+  }"
+  >
+    <div class="divide-y divide-sky-800">
+      <div class="p-2 pb-8 h-1/5">
+        <div class="text-white flex justify-center">
+          <img src="https://static.wixstatic.com/media/b740eb_c1daed90c894417eb5de7cd87102b84f~mv2.png/v1/fill/w_253,h_71,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/logov2.png" alt="user_managment"
+          class="rounded-lg w-40" (click)="gotoHome()">
+        </div>
+        <div class="hidden max-sm:flex justify-end px-6">
+          <i class="material-icons text-white text-2xl" (click)="toggleSidebar = !toggleSidebar">arrow_back</i>
+        </div>
+        <div class=" pt-8 pl-2 pb-4 flex space-x-4 text-white">
+          <div class="flex w-full justify-between items-center">
+            <div class="flex items-center  space-x-3">
+              <img [attr.src]="user?.avatar" alt="avatar" class="size-12 rounded-full bg-slate-900">
+              <div class="space-y-1">
+                <div class="text-md">
+                  {{ user?.name_truncate  }}
+                </div>
+                <div class="text-xs text-slate-400">
+                  {{ user?.email_truncate }}
+                </div>
+              </div>
+            </div>
+            <div class="pl-10">
+              <button mat-menu-item (click)="logout()" class="flex items-center">
+                <span>sair</span>
+                <mat-icon>logout</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="overflow-y-scroll absolute w-full h-3/4 scrollable">
+         <app-module-dropdown
+           *ngFor="let module of modules"
+           [icon]="module.icon"
+           [name]="module.name"
+           [links]="module.links"
+         ></app-module-dropdown>
+      </div>
+      <div class="fixed  w-1/5  bg-sky-900 bottom-0 max-sm:hidden">
+        <div class="text-slate-400 mx-2 pt-6 py-4">
+          <p>&copy; 2024 Desafio Fullstack Ponce Tech.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div (click)="toggleSidebar = !toggleSidebar" class="cursor-pointer space-x-4 max-sm:flex fixed hidden w-full py-5 pl-4 items-center bg-slate-900">
+    <img [attr.src]="user?.avatar" alt="avatar" class="size-12 rounded-full bg-slate-900">
+    <div class=" text-slate-200 text-lg">
+      {{ user?.name }}
+    </div>
+  </div>
+  <div class="flex justify-end">
+    <div class="bg-slate-300 w-4/5 max-sm:w-full top-0 bottom-0">
+      <div class="pb-40 ">
+        <div class="mx-5 max-sm:pt-20">
+          <ng-content select=".title"></ng-content>
+        </div>
+        <ng-content select=".content"></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<app-authpanel>
+  <form class="bg-sky-900 col-span-2 py-10 max-sm:col-span-5 pt-28" (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div class="w-full flex justify-center ">
+      <img src="https://static.wixstatic.com/media/b740eb_c1daed90c894417eb5de7cd87102b84f~mv2.png/v1/fill/w_253,h_71,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/logov2.png" alt="user_managment" class="rounded-lg">
+    </div>
+    <div *ngIf="registerFail || form.get('name')?.invalid || form.get('email')?.invalid
+      || form.get('password')?.invalid || !passswordPattern() || form.get('confirmPassword')?.invalid
+      || (form.get('confirmPassword')?.touched && form.value?.confirmPassword != form.value?.password)
+      "
+         class="text-red-700 text-center">
+        <div *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')">
+            O campo e-mail é obrigatório
+        </div>
+        <div *ngIf="alreadyInUse.email">
+            Este e-mail já está em uso
+        </div>
+        <div *ngIf="form.get('email')?.touched && form.get('email')?.hasError('email')">
+            Formato de e-mail não aceito
+        </div>
+        <div *ngIf="form.get('name')?.touched && form.get('name')?.hasError('required')">
+            O campo nome é obrigatório
+        </div>
+        <div *ngIf="form.get('name')?.touched && form.get('name')?.hasError('minLength')">
+            Nome deve ter no mínimo 6 caracteres
+        </div>
+        <div *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">
+            O campo senha é obrigatório
+        </div>
+        <div *ngIf="form.get('email')?.touched && form.get('password')?.hasError('minLength')">
+            Senha deve ter no mínimo 6 caracteres
+        </div>
+        <div *ngIf="form.get('confirmPassword')?.touched && form.get('confirmPassword')?.hasError('required')">
+            Confirmar senha é obrigatório
+        </div>
+        <div *ngIf="form.get('confirmPassword')?.touched && form.value?.confirmPassword != form.value?.password">
+            As senhas não coincidem
+        </div>
+        <div *ngIf="form.get('password')?.touched && !passswordPattern()">
+            A senha deve conter pelo menos um caractere maiúsculo, números e caracteres especiais
+        </div>
+    </div>
+    <div class="w-full flex justify-center py-6">
+      <div class="text-left w-3/4 space-y-2">
+        <div class="text-sm text-white" [ngClass]="{'text-red-700': form.get('name')?.touched && form.get('name')?.invalid }" >Nome</div>
+        <div [ngClass]="{'border-red-500': form.get('name')?.touched && form.get('name')?.invalid }" class=" border-2 space-x-4 w-full bg-white rounded p-1 flex items-center justify-between px-3 ">
+          <input  type="text" formControlName="name" class=" w-full ring-0 outline-none text-lg">
+        </div>
+      </div>
+    </div>
+    <div class="w-full flex justify-center py-6">
+      <div class="text-left w-3/4 space-y-2">
+        <div class="text-sm text-white" [ngClass]="{'text-red-700':alreadyInUse.email || (form.get('email')?.touched && form.get('email')?.invalid)}" >Email</div>
+        <div [ngClass]="{'border-red-500': alreadyInUse.email || (form.get('email')?.touched && form.get('email')?.invalid) }" class=" border-2 space-x-4 w-full bg-white rounded p-1 flex items-center justify-between px-3 ">
+          <input  type="text" formControlName="email"  class=" w-full ring-0 outline-none text-lg">
+        </div>
+      </div>
+    </div>
+    <div class="w-full flex justify-center py-6">
+      <div class="text-left w-3/4 space-y-2">
+        <div class="text-sm text-white" [ngClass]="{'text-red-700': form.get('password')?.touched && form.get('password')?.invalid }" >Senha</div>
+        <div [ngClass]="{'border-red-500': form.get('password')?.touched && (!passswordPattern() || form.get('password')?.invalid) }"  class="space-x-2 w-full bg-white rounded p-1 flex items-center justify-between px-3 border border-2">
+          <input
+            formControlName="password"
+            [attr.type]="password.visible ?
+              'text' : 'password'" class="w-full ring-0 outline-none text-lg"
+          >
+          <i (click)="password.visible = !password.visible" *ngIf="password.visible else visibilityPassword" class="cursor-pointer material-icons" [ngClass]="{'hidden': form.value.password?.length == 0}">visibility_off</i>
+          <ng-template  #visibilityPassword>
+            <i (click)="password.visible = !password.visible" [ngClass]="{'hidden': form.value.password?.length == 0}" class="cursor-pointer material-icons">visibility</i>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="w-full flex justify-center py-6">
+      <div class="text-left w-3/4 space-y-2">
+        <div class="text-sm text-white " [ngClass]="{'text-red-700': form.get('confirmPassword')?.touched && form.value?.confirmPassword != form.value?.password}" >Confirmar Senha</div>
+        <div [ngClass]="{'border-red-500': form.get('confirmPassword')?.touched && form.value?.confirmPassword != form.value?.password }"  class="space-x-2 w-full bg-white rounded p-1 flex items-center justify-between px-3 border border-2">
+          <input
+              formControlName="confirmPassword"
+             [attr.type]="confirmPassword.visible ?
+              'text' : 'password'" class="w-full ring-0 outline-none text-lg"
+          >
+          <i (click)="confirmPassword.visible = !confirmPassword.visible" *ngIf="confirmPassword.visible else visibilityConfirmPassword" class="cursor-pointer material-icons" [ngClass]="{'hidden':  form.value?.confirmPassword.length == 0}">visibility_off</i>
+          <ng-template  #visibilityConfirmPassword>
+            <i (click)="confirmPassword.visible = !confirmPassword.visible" [ngClass]="{'hidden': form.value?.confirmPassword.length == 0}" class="cursor-pointer material-icons">visibility</i>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="w-full flex justify-center py-6">
+      <button type="submit" class="w-3/4 bg-sky-700 rounded p-1 text-slate-200 hover:bg-sky-800">
+        Confirmar
+      </button>
+    </div>
+    <div class="flex justify-center">
+      <div class=" text-sm text-slate-400 cursor-pointer hover:underline" (click)="gotoLogin()">
+        Fazer Login
+      </div>
+    </div>
+  </form>
+  <div class="fixed z-40 left-0 right-0 top-0 bottom-0 bg-black/40 flex justify-center items-center" [ngClass]="{'hidden': !loading}" >
+    <mat-spinner></mat-spinner>
+  </div>
+</app-authpanel>

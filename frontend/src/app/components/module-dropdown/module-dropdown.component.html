@@ -1,0 +1,26 @@
+<div (click)="select()" class="w-full px-4 py-4 hover:bg-sky-800 cursor-pointer flex items-center justify-between text-slate-200" [ngClass]="{'bg-sky-800': active}">
+  <mat-icon>
+    {{ icon }}
+  </mat-icon>
+  <div>
+    {{ name }}
+  </div>
+  <mat-icon>
+    {{ expand ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+  </mat-icon>
+</div>
+
+<div class=" bg-sky-950 transition-all delay-50" >
+  <div *ngFor="let link of links" [ngClass]="{
+  'h-0': !expand, 'h-10': expand,
+   'py-0': !expand,
+   'bg-sky-200/30': link.active }" class="overflow-hidden transition-all delay-50  w-full pl-6  hover:bg-sky-200/10 cursor-pointer flex items-center justify-between text-slate-200">
+    <mat-icon>
+      remove
+    </mat-icon>
+    <div>
+      {{ link.name }}
+    </div>
+    <div></div>
+  </div>
+</div>

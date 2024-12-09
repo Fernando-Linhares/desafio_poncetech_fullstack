@@ -1,0 +1,23 @@
+<div class="text-sm pb-10" [ngClass]="{'text-red-700': invalidCode, 'text-white': !invalidCode, 'text-green-700': ok}">Account Confirmation Code</div>
+<div class="flex justify-center space-x-2 item-center">
+  <div  class="border-2 w-3/4 w-full bg-white rounded p-1 flex items-center justify-between px-3"
+        [ngClass]="{'border-2': invalidCode||ok, 'border-red-500': invalidCode, 'border-green-500': ok}">
+    <input [value]="context.chars[0]"  (keyup)="onPress($event, 0)" (focus)="context.chars[0] = ''" type="text" [maxLength]="1" class=" w-full text-center ring-0 outline-none text-lg">
+  </div>
+  <div  class="border-2 w-3/4 w-full bg-white rounded p-1 flex items-center justify-between px-3"
+        [ngClass]="{'border-2': invalidCode||ok, 'border-red-500': invalidCode, 'border-green-500': ok}">
+    <input  [value]="context.chars[1]"  (keyup)="onPress($event, 1)" (focus)="context.chars[1] = ''" type="text" [maxLength]="1" class="w-full text-center ring-0 outline-none text-lg">
+  </div>
+  <div  class="border-2 w-3/4 w-full bg-white rounded p-1 flex items-center justify-between px-3"
+        [ngClass]="{'border-2': invalidCode||ok, 'border-red-500': invalidCode, 'border-green-500': ok}">
+    <input [value]="context.chars[2]" (keyup)="onPress($event, 2)" (focus)="context.chars[2] = ''" type="text" [maxLength]="1" class=" w-full text-center ring-0 outline-none text-lg">
+  </div>
+  <div  class="border-2 w-3/4 w-full bg-white rounded p-1 flex items-center justify-between px-3"
+        [ngClass]="{'border-2': invalidCode||ok, 'border-red-500': invalidCode, 'border-green-500': ok}">
+    <input [value]="context.chars[3]" (keyup)="onPress($event, 3)" (focus)="context.chars[3] = ''" type="text" [maxLength]="1" class=" w-full text-center ring-0 outline-none text-lg">
+  </div>
+  <div  class="border-2 w-3/4 w-full bg-white rounded p-1 flex items-center justify-between px-3"
+        [ngClass]="{'border-2': invalidCode||ok, 'border-red-500': invalidCode, 'border-green-500': ok}">
+    <input [value]="context.chars[4]" (keyup)="onPress($event, 4)" (focus)="context.chars[4] = ''" type="text" [maxLength]="1" class=" w-full text-center ring-0 outline-none text-lg">
+  </div>
+</div>
