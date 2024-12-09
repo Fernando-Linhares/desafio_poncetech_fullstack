@@ -62,7 +62,7 @@ Siga os passos abaixo para configurar e executar o projeto:
    docker exec -it app.backend npm run seed
    ```  
 
-5**Acesse o aplicativo**:  
+5. **Acesse o aplicativo**:  
    - O backend estará disponível em: `http://localhost:3000`  
    - O frontend estará disponível em: `http://localhost:4000`  
 
